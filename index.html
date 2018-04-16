@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Visualization Final Project</title>
+  <link href="https://fonts.googleapis.com/css?family=Mina" rel="stylesheet">
+  <script src="js/d3.v4.js"></script>
+  <script src="js/topoJson.js"></script>
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="js/jquery.onepage-scroll.js"></script>
+  <link href='css/onepage-scroll.css' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+  <div id="header">
+    <h1>CarbonViz - A Carbon Dioxide Emission Visualization Tool</h1>
+  </div>
+  <div id="console">
+    <div id="slidecontainer">
+      <p class="year-label">Current year:
+        <span id="year-val"></span>
+      </p>
+      <br>
+      <input id="year" type="range" step="1">
+      <p class="year-label">
+        Country:
+        <span id="country-val"></span>
+        <br>
+      </p>
+    </div>
+    <div id="dataConsole">
+      Choose between Datasets:
+      <br>
+      <label class="container">CO
+        <sub>2</sub> Emissions
+        <input type="radio" name="dataSets" value="Emissions" checked>
+        <span class="checkmark"></span>
+      </label>
+      <label class="container">CO
+        <sub>2</sub> Emissions Per Capita
+        <input type="radio" name="dataSets" value="PerCapita">
+        <span class="checkmark"></span>
+      </label>
+      <label class="container">CO
+        <sub>2</sub> Emissions Per $1 GDP
+        <input type="radio" name="dataSets" value="PerGDP">
+        <span class="checkmark"></span>
+      </label>
+
+    </div>
+  </div>
+  <div class="main">
+    <section>
+      <div>
+        <svg id="topoMap"></svg>
+      </div>
+      <div>
+        <svg id="svgMiniMapBar" height="250px" width="300px">
+          <defs>
+            <symbol viewBox="0 0 900 600" id="resizableMapBar">
+              <use xlink:href="#barGraph" />
+            </symbol>
+          </defs>
+          <use xlink:href="#resizableMapBar" width="100%" height="120%" />
+        </svg>
+      </div>
+      <div>
+        <svg id="svgMiniMapPie" height="250px" width="300px">
+          <defs>
+            <symbol viewBox="0 0 900 600" id="resizableMapPie">
+              <use xlink:href="#pieChart" />
+            </symbol>
+          </defs>
+          <use xlink:href="#resizableMapPie" width="100%" height="100%" />
+        </svg>
+      </div>
+    </section>
+    <section>
+      <div>
+        <svg id="barGraph"></svg>
+      </div>
+      <div>
+        <svg id="svgMiniBarMap" height="250px" width="300px">
+          <defs>
+            <symbol viewBox="0 0 900 600" id="resizableBarMap">
+              <use xlink:href="#topoMap" />
+            </symbol>
+          </defs>
+          <use xlink:href="#resizableBarMap" width="100%" height="100%" />
+        </svg>
+      </div>
+      <div>
+        <svg id="svgMiniBarPie" height="250px" width="300px">
+          <defs>
+            <symbol viewBox="0 0 900 600" id="resizableBarPie">
+              <use xlink:href="#pieChart" />
+            </symbol>
+          </defs>
+          <use xlink:href="#resizableBarPie" width="100%" height="100%" />
+        </svg>
+      </div>
+    </section>
+    <section>
+      <div>
+        <svg id="pieChart"></svg>
+      </div>
+      <div>
+        <svg id="svgMiniPieBar" height="250px" width="300px">
+          <defs>
+            <symbol viewBox="0 0 900 600" id="resizablePieBar">
+              <use xlink:href="#barGraph" />
+            </symbol>
+          </defs>
+          <use xlink:href="#resizablePieBar" width="100%" height="120%" />
+        </svg>
+      </div>
+      <div>
+        <svg id="svgMiniPieMap" height="250px" width="300px">
+          <defs>
+            <symbol viewBox="0 0 900 600" id="resizablePieMap">
+              <use xlink:href="#topoMap" />
+            </symbol>
+          </defs>
+          <use xlink:href="#resizablePieMap" width="100%" height="100%" />
+        </svg>
+      </div>
+    </section>
+  </div>
+  <div class="tooltip"></div>
+  <script src="js/graph.js"></script>
+</body>
+
+<!--
+  REFERENCES
+
+[1] O. Laboratory, "Current Greenhouse Gas Concentrations", Cdiac.ess-dive.lbl.gov, 2018. [Online]. Available: http://cdiac.ess-dive.lbl.gov/pns/current_ghg.html. [Accessed: 08- Apr- 2018].
+
+[2] Allison, Ian. "The science of climate change: questions and answers." Australian Academy of Science February (2015): 1-44.
+
+[3] "Main sources of carbon dioxide emissions", What's Your Impact, 2018. [Online]. Available: https://whatsyourimpact.org/greenhouse-gases/carbon-dioxide-emissions. [Accessed: 11- Apr- 2018].
+
+[4] Le Quéré, Corinne & Joseph Andres, Robert & A Boden, Thomas & Conway, Thomas & Houghton, Richard & House, Joanna & Marland, Gregg & P Peters, Glen & Van der Werf, Guido & Ahlström, Anders & Andrew, RM & Bopp, Laurent & Canadell, J.G. & Ciais, Philippe & Doney, Scott & Enright, C & Friedlingstein, Pierre & Huntingford, Chris & Jain, Atul & Zeng, Ning. (2013). The global carbon budget, 1959-2011. Earth System Science Data (ESSD). 5. 10.5194/essd-5-165-2013.
+
+[5] "How GDP is Linked to CO2 Emissions | OilPrice.com", OilPrice.com, 2018. [Online]. Available: https://oilprice.com/Energy/Energy-General/How-GDP-Is-Linked-To-CO2-Emissions.html. [Accessed: 11- Apr- 2018].
+
+[6] M. Bostock, "D3.js - Data-Driven Documents", D3js.org, 2018. [Online]. Available: https://d3js.org/. [Accessed: 13- Feb- 2018].
+
+[7] "DOM", MDN Web Docs, 2018. [Online]. Available: https://developer.mozilla.org/en-US/docs/Glossary/DOM. [Accessed: 11- Apr- 2018].
+
+[8] "peachananr/onepage-scroll", GitHub, 2018. [Online]. Available: https://github.com/peachananr/onepage-scroll. [Accessed: 11- Apr- 2018].
+
+[9] "unstats | Millennium Indicators", Mdgs.un.org, 2018. [Online]. Available: http://mdgs.un.org/unsd/mdg/Data.aspx. [Accessed: 11- Apr- 2018].
+
+[10] O. Laboratory, "Carbon Dioxide Information Analysis Center (CDIAC)", Cdiac.ess-dive.lbl.gov, 2018. [Online]. Available: http://cdiac.ess-dive.lbl.gov/. [Accessed: 11- Apr- 2018].
+
+[11] "UNdata | record view | Carbon dioxide emissions (CO2), thousand metric tons of CO2 (CDIAC)", Data.un.org, 2018. [Online]. Available: http://data.un.org/Data.aspx?q=Carbon+dioxide+emissions+(CO2)&d=MDG&f=seriesRowID%3a749. [Accessed: 15- Mar- 2018]. 
+
+[12] "UNdata | record view | Carbon dioxide emissions (CO2), metric tons of CO2 per capita (CDIAC)", Data.un.org, 2018. [Online]. Available: http://data.un.org/Data.aspx?q=Carbon+dioxide+emissions+(CO2)&d=MDG&f=seriesRowID%3a751. [Accessed: 15- Mar- 2018].
+
+[13] "UNdata | record view | Carbon dioxide emissions (CO2), kg CO2 per $1 GDP (PPP) (CDIAC)", Data.un.org, 2018. [Online]. Available: http://data.un.org/Data.aspx?q=Carbon+dioxide+emissions+(CO2)&d=MDG&f=seriesRowID%3a788. [Accessed: 15- Mar- 2018].
+
+[14] "topojson/world-atlas", GitHub, 2018. [Online]. Available: https://github.com/topojson/world-atlas. [Accessed: 09- Apr- 2018].
+
+[15] Unpkg.com, 2018. [Online]. Available: https://unpkg.com/world-atlas@1.1.4/world/50m.json. [Accessed: 11- Apr- 2018].
+
+[16] M. Bostock and M. Bostock, "Let’s Make a Map", Bost.ocks.org, 2018. [Online]. Available: https://bost.ocks.org/mike/map/. [Accessed: 11- Apr- 2018].
+ -->
+
+</html>
